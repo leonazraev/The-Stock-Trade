@@ -18,20 +18,27 @@
           <b-dropdown-item href="#">Save</b-dropdown-item>
           <b-dropdown-item href="#">Load</b-dropdown-item>
         </b-nav-item-dropdown>
-        <b-nav-item disabled >Funds:{{jhonny}}</b-nav-item>
+        <b-nav-item disabled >Funds: {{funds}}</b-nav-item>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
 </div>
 </template>
 <script>
+import * as numeral from 'numeral'
 export default {
   methods:{
     updatePrice(){
       this.$store.dispatch('updatePrice','EndDay')
-    }
+    },
+  },
+  computed: {
+      funds: {
+        get(){
+          return numeral(this.$store.getters.funds).format('0,0') + ' $';
+        }
+      }
   }
-    
 }
 </script>
 <style scoped>

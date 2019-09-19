@@ -78,6 +78,30 @@ const actions = {
             element.price = Math.floor((Math.random() * (500 - 100)) + 100);
         });
 
+    },
+    updateMyStock: (contex,arg) => {
+        for(let i=0; i< contex.state.stockArray.length ; i++)
+        {
+            if(contex.state.stockArray[i].name === arg.name)
+            {
+                contex.state.stockArray[i].stock = contex.state.stockArray[i].stock - arg.stock;
+               
+            }
+            contex.state.stockArray[i].itemsToBuy = 0;
+        }
+    },
+    resetCart: contex => {
+        for(let i=0; i< contex.state.stockArray.length ; i++)
+        {
+            contex.state.stockArray[i].itemsToBuy = 0;
+        }
+    },
+    updateArr: (contex,arg) => {
+        for(let i=0; i< contex.state.stockArray.length ; i++)
+        {
+            if(contex.state.stockArray[i].name === arg.name)
+                contex.state.stockArray[i] = arg;
+        }
     }
 }
 
