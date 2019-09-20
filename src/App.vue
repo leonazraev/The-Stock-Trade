@@ -21,15 +21,10 @@ import NavigateionBar from './components/NavigationBar.vue'
 }
 .slide-enter-active {
   animation: slide-in 0.5s ease-out forwards;
+
   /*to mix transition and animation transition: 1s; */
 }
-.slide-leave {
-}
-.slide-leave-active {
-  animation: slide-out 0.5s ease-out forwards;
-  position: absolute;
-  /*to mix transition and animation transition: 4s; */
-}
+
 .slide-move {
     transition: transform 0.5s;
     

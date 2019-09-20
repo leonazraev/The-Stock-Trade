@@ -1,4 +1,5 @@
 
+
 const Home = resolve => {
     require.ensure(['../components/Home.vue'] ,()=> {
         resolve(require('../components/Home.vue'))
@@ -20,7 +21,7 @@ const Stocks = resolve => {
 
 
 export const routes = [
-    {path: '', components: { default: Home } },
+    {path: '/', components: { default: Home } },
     {path: '/Portfolio' ,components: {default: Portfolio} },
     {path: '/Stocks' ,components: {default: Stocks} },
 
