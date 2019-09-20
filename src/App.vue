@@ -12,7 +12,10 @@ import NavigateionBar from './components/NavigationBar.vue'
     export default {
         components: {
             NavigateionBar
-        }
+        },
+        beforeCreate(){
+          this.$store.dispatch('loadStockDB');
+        },
     }
 </script>
 
