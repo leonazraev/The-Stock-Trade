@@ -9,7 +9,7 @@ import VueResource from 'vue-resource'
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 Vue.use(VueResource);
-
+Vue.http.options.emulateJSON = true
 Vue.http.options.root = 'https://stock-trader-90785.firebaseio.com/';
 
 const router = new VueRouter({

@@ -14,7 +14,9 @@ import NavigateionBar from './components/NavigationBar.vue'
             NavigateionBar
         },
         beforeCreate(){
+           this.$store.dispatch("LoadDB");
           this.$store.dispatch('loadStockDB');
+          console.log(this.$store.getters.slidesList)
         },
     }
 </script>

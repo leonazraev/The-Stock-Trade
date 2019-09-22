@@ -63,7 +63,6 @@ const actions = {
             })
             contex.state.stockArray = array;
         })
- 
     },
     updateStockDB: contex => {
 

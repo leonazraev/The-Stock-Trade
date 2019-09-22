@@ -18,10 +18,16 @@ const Stocks = resolve => {
     })
 }
 
+const Carusel = resolve => {
+    require.ensure(['../components/Carusel.vue'] ,()=> {
+        resolve(require('../components/Carusel.vue'))
+    })
+}
+
 
 
 export const routes = [
-    {path: '/', components: { default: Home } },
+    {path: '/', components: { default: Carusel } },
     {path: '/Portfolio' ,components: {default: Portfolio} },
     {path: '/Stocks' ,components: {default: Stocks} },
 

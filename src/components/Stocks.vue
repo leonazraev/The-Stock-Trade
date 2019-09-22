@@ -34,6 +34,10 @@ export default {
   computed: {
     stockArray: {
       get() {
+                    for(let i =0 ; i < this.$store.getters.stockArray.length ; i++)
+            {
+                console.log('Stocks',this.$store.getters.stockArray[i])
+            }
         return this.$store.getters.stockArray;
       },
       set(value) {}
