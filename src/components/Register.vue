@@ -1,8 +1,9 @@
 <template>
-  <b-container class="padding-top">
+<div>
+  <b-container class="padding-top" v-if="show">
     <h1 class="center">Registeration</h1>
     <hr />
-    <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+    <b-form @submit="onSubmit" @reset="onReset">
       <b-form-group id="firstname" label="First name:" label-for="firstname">
         <b-form-input
           id="firstname"
@@ -22,7 +23,7 @@
       <b-form-group id="funds" label="Funds:" label-for="funds" description="The funds are in USD">
         <b-form-input
           id="funds"
-          v-model="userData.funds"
+          v-model="userData.portfolio.funds"
           type="number"
           required
           placeholder="How many funds do you want to buy?"
@@ -49,6 +50,11 @@
       <b-button type="reset" variant="outline-primary">Reset</b-button>
     </b-form>
   </b-container>
+    <b-container class="padding-top" v-else>
+      <h1 class="center">You already login!</h1>
+  </b-container>
+</div>
+
 </template>
 
 <script>
@@ -60,24 +66,40 @@ export default {
         password: "",
         FirstName: "",
         LastName: "",
-        funds: null,
-        portfolio:{}
+        portfolio: {
+          myStock: {
+          },
+          funds: null
+        }
       },
-      show: true
     };
   },
   methods: {
-    onSubmit() {
-      this.$http.post('')
+    onSubmit(evt) {
+      evt.preventDefault();
+      this.$http
+        .post(
+          "Users.json",
+          JSON.stringify(this.userData)
+        )
+        .then(
+          Response => {
+            console.log(Response);
+            this.$router.push('Login')
+
+          },
+          error => {
+            console.log(error);
+          }
+        );
     },
     onReset(evt) {
       evt.preventDefault();
-
       this.userData.email = "";
       this.userData.password = "";
       this.userData.FirstName = "";
       this.userData.LastName = "";
-      this.userData.funds = ""; 
+      this.userData.portfolio.funds = null;
     }
   },
   computed: {
@@ -87,10 +109,15 @@ export default {
         this.userData.password === "" ||
         this.userData.FirstName === "" ||
         this.userData.LastName === "" ||
-        this.userData.funds === ""
+        this.userData.portfolio.funds === null ||
+        this.userData.portfolio.funds === ''
       )
         return "danger";
       else return "success";
+    },
+    show(){
+      console.log(this.$store.getters.show)
+      return this.$store.getters.show;
     }
   }
 };

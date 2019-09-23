@@ -39,8 +39,9 @@ export default {
       },
       set(value) {}
     },
-
-
+    myPortfolio() {
+      return this.$store.getters.myPortfolio;
+    }
   },
   methods: {
     buy(card) {
@@ -52,15 +53,15 @@ export default {
         index: card.index
       };
       if (card.itemsToBuy !== 0) {
-         this.$store.dispatch("addItem", obj)
-        .then( arg => {
-        if(arg === false)
-          this.makeToast('danger');
-        if(arg === true)
-          this.makeToast('success')
-        }
-        );
+        console.log(this.myPortfolio);
+        this.$store.dispatch("addItem", obj).then(arg => {
+          if (arg === false) {
+            if (this.myPortfolio === null) this.makeToast("warning");
+            else this.makeToast("danger");
+          }
 
+          if (arg === true) this.makeToast("success");
+        });
       }
     },
     updateArr(card, b) {
@@ -68,18 +69,17 @@ export default {
       this.$store.dispatch("updateArr", card);
     },
     makeToast(variant = null) {
-        let toast;
-        console.log('variant',variant)
-        if(variant === 'success')
-          toast = 'You successfully buy the stock!'
-        else
-          toast = 'you dont have enough money!'
-        this.$bvToast.toast(toast, {
-          title: ` ${variant || 'default'}`,
-          variant: variant,
-          solid: true
-        })
-      }
+      let toast;
+      if (variant === "success") toast = "You successfully buy the stock!";
+      else if (variant === "danger") toast = "you dont have enough money!";
+      else if (variant === "warning") toast = "please register or log in first";
+      this.$bvToast.toast(toast, {
+        title: ` ${variant || "default"}`,
+        variant: variant,
+        toaster: 'b-toaster-top-center',
+        solid: true
+      });
+    }
   }
 };
 </script>
