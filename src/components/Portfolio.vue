@@ -1,5 +1,5 @@
 <template>
-   <b-container>
+   <b-container class="padding-top">
     <br />
 
     <b-card-group deck class="text-center">
@@ -56,5 +56,8 @@ export default {
     flex: initial;
     margin: 10px;
   }
+}
+.padding-top {
+  padding-top: 50px;;
 }
 </style>

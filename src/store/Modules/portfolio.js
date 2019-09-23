@@ -20,8 +20,12 @@ const mutations = {
 
 const actions = {
     addItem: (contex, arg) => {
-        contex.dispatch('updateMyStock',arg)
+        if(contex.state.funds - (arg.price * arg.stock) < 0)
+        {
+            return false;
+        }
         contex.state.funds = contex.state.funds - (arg.price * arg.stock);
+        contex.dispatch('updateMyStock',arg)
         var prevElement;
         contex.state.mystockArray = contex.state.mystockArray.filter(element => {
             if (element.name === arg.name) {
@@ -39,7 +43,7 @@ const actions = {
         }
         arg.index = contex.state.mystockArray.length;
         contex.state.mystockArray.push(arg);
-        console.log(contex.getters.stockArray);
+        return true;
             
     },
     sellItem: (contex,arg) => {

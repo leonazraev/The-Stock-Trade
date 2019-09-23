@@ -41,6 +41,7 @@ export default {
     };
   },
   methods: {
+    
     onSlideStart(slide) {
       this.sliding = true;
     },

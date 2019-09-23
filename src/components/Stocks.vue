@@ -1,7 +1,6 @@
 <template>
-  <b-container>
+  <b-container class="padding-top">
     <br />
-
     <b-card-group deck class="text-center">
       <b-card
         v-for="(card,index) in stockArray"
@@ -28,24 +27,23 @@
 <script>
 export default {
   data() {
-    return {
-    };
+    return {};
   },
   computed: {
     stockArray: {
       get() {
-                    for(let i =0 ; i < this.$store.getters.stockArray.length ; i++)
-            {
-                console.log('Stocks',this.$store.getters.stockArray[i])
-            }
+        for (let i = 0; i < this.$store.getters.stockArray.length; i++) {
+          console.log("Stocks", this.$store.getters.stockArray[i]);
+        }
         return this.$store.getters.stockArray;
       },
       set(value) {}
-    }
+    },
+
+
   },
   methods: {
     buy(card) {
-      
       let obj = {
         stock: card.itemsToBuy,
         price: card.price,
@@ -54,13 +52,34 @@ export default {
         index: card.index
       };
       if (card.itemsToBuy !== 0) {
-        this.$store.dispatch("addItem", obj);
+         this.$store.dispatch("addItem", obj)
+        .then( arg => {
+        if(arg === false)
+          this.makeToast('danger');
+        if(arg === true)
+          this.makeToast('success')
+        }
+        );
+
       }
     },
     updateArr(card, b) {
       card.itemsToBuy = b.target.value;
-      this.$store.dispatch("updateArr", card );
-    }
+      this.$store.dispatch("updateArr", card);
+    },
+    makeToast(variant = null) {
+        let toast;
+        console.log('variant',variant)
+        if(variant === 'success')
+          toast = 'You successfully buy the stock!'
+        else
+          toast = 'you dont have enough money!'
+        this.$bvToast.toast(toast, {
+          title: ` ${variant || 'default'}`,
+          variant: variant,
+          solid: true
+        })
+      }
   }
 };
 </script>
@@ -78,5 +97,8 @@ export default {
     flex: initial;
     margin: 10px;
   }
+}
+.padding-top {
+  padding-top: 50px;
 }
 </style>
